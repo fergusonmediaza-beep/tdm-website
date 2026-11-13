@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -80,15 +79,15 @@
           <div class="col-lg-7">
             <p class="section-eyebrow">Merchant distribution</p>
             <h2 class="section-title" id="merchant_title">Building merchant networks on the ground</h2>
-            <p>TDM deploys point-of-sale (POS) devices to township merchants through a technology and distribution relationship with PayPoint, the POS technology provider. Our local operational relationships help get devices into the communities where we work.</p>
+            <p>TDM has deployed 135 point-of-sale (POS) devices to township merchants through a technology and distribution relationship with PayPoint, the POS technology provider. This is a deployment count, not the number of active merchants or transactions (management report, October 2026).</p>
+            <p>Our merchant work runs in the same ten Gauteng communities as the rest of our footprint. <a class="card-link" href="footprint.html">See the communities <i class="fas fa-arrow-right" aria-hidden="true"></i></a></p>
             <p class="mb-0">PayPoint is a separate company. TDM does not own PayPoint.</p>
           </div>
           <div class="col-lg-5">
-            <div class="stat-tile">
-              <span class="stat-value">135</span>
-              <span class="stat-label">PayPoint POS machines deployed</span>
-              <p class="stat-definition">A deployment count, not the number of active merchants or transactions.</p>
-              <p class="stat-period">Management report, October 2026</p>
+            <div class="surface-card">
+              <span class="card-icon"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i></span>
+              <h3 class="card-title">POS support and distribution</h3>
+              <p class="card-text mb-0">On-the-ground, technically trained agents support and grow merchant estates for POS companies.</p>
             </div>
           </div>
         </div>
@@ -104,54 +103,6 @@
               <p class="logo-tile-name">PayPoint</p>
               <p class="logo-tile-label">POS technology provider</p>
               <span class="logo-pending">Approved logo pending</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="section-block" aria-labelledby="merchant_map_title">
-      <div class="container-xl">
-        <p class="section-eyebrow">Where we operate</p>
-        <h2 class="section-title" id="merchant_map_title">Our community footprint</h2>
-        <p class="section-intro mb-4">Our merchant network work takes place in the same 10 Gauteng communities.</p>
-        <div class="footprint-map js-footprint-map">
-          <div class="row g-4">
-            <div class="col-lg-7">
-              <div class="map-canvas js-map-canvas" role="region" aria-label="Map of TDM communities in Gauteng">
-                <p class="map-fallback">The map could not be loaded. All 10 communities are listed alongside.</p>
-              </div>
-              <p class="map-scale-note">Each pin marks a community's general area, not an office, site or device location.</p>
-            </div>
-            <div class="col-lg-5">
-              <div class="map-region-group">
-                <h3 class="map-region-heading">Soweto and Johannesburg South <span class="map-region-count">50 beneficiaries (regional total)</span></h3>
-                <ul class="map-community-list">
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Soweto" data-region="Soweto and Johannesburg South" data-beneficiaries="50" data-lat="-26.2485" data-lng="27.854">Soweto</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Diepkloof" data-region="Soweto and Johannesburg South" data-beneficiaries="50" data-lat="-26.2533" data-lng="27.9547">Diepkloof</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Tladi" data-region="Soweto and Johannesburg South" data-beneficiaries="50" data-lat="-26.2611" data-lng="27.8653">Tladi</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Moletsane" data-region="Soweto and Johannesburg South" data-beneficiaries="50" data-lat="-26.2528" data-lng="27.8564">Moletsane</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Orange Farm" data-region="Soweto and Johannesburg South" data-beneficiaries="50" data-lat="-26.4833" data-lng="27.8667">Orange Farm</button></li>
-                </ul>
-              </div>
-              <div class="map-region-group">
-                <h3 class="map-region-heading">Ekurhuleni / East Rand <span class="map-region-count">16 beneficiaries (regional total)</span></h3>
-                <ul class="map-community-list">
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Thokoza" data-region="Ekurhuleni / East Rand" data-beneficiaries="16" data-lat="-26.3556" data-lng="28.1306">Thokoza</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Katlehong" data-region="Ekurhuleni / East Rand" data-beneficiaries="16" data-lat="-26.3333" data-lng="28.15">Katlehong</button></li>
-                </ul>
-              </div>
-              <div class="map-region-group">
-                <h3 class="map-region-heading">Vaal Triangle <span class="map-region-count">69 beneficiaries (regional total)</span></h3>
-                <ul class="map-community-list">
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Sebokeng" data-region="Vaal Triangle" data-beneficiaries="69" data-lat="-26.5833" data-lng="27.8333">Sebokeng</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Evaton" data-region="Vaal Triangle" data-beneficiaries="69" data-lat="-26.5167" data-lng="27.85">Evaton</button></li>
-                  <li><button type="button" class="map-community-btn" aria-pressed="false" data-community="Evaton West" data-region="Vaal Triangle" data-beneficiaries="69" data-lat="-26.513" data-lng="27.808">Evaton West</button></li>
-                </ul>
-              </div>
-              <div class="map-detail" role="status" aria-live="polite">
-                <p class="map-detail-title">Select a community</p>
-                <p class="map-detail-text">Choose a community here or on the map to see which region it belongs to. Beneficiary figures are regional totals for March–July 2026, not counts per community or per device.</p>
-              </div>
             </div>
           </div>
         </div>
@@ -218,9 +169,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js/count-up.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
-  <script src="js/footprint-map.js"></script>
 </body>
 
 </html>
