@@ -1,12 +1,24 @@
 /* global document, window, IntersectionObserver */
 
-const COUNTER_SELECTOR = '.stat-value, .record-figure-value';
+const COUNTER_SELECTOR = '.stat-value, .record-figure-value, .hero-tagline-strong';
 const GROUP_SELECTOR = 'section';
 const DURATION_MS = 1800;
 const NUMBER_PATTERN = /^(\d+)(\D*)$/;
 
 function easeOutCubic(progress) {
   return 1 - Math.pow(1 - progress, 3);
+}
+
+/*
+ * Every counter in a group moves from the first frame and lands on its final value
+ * only on the last frame, so small numbers (3, 10) don't finish before big ones (135).
+ */
+function shownNumber(target, progress, eased) {
+  if (progress >= 1) {
+    return target;
+  }
+  const floor = Math.floor(target * eased);
+  return Math.min(target - 1, Math.max(1, floor));
 }
 
 function prepareCounter(element) {
@@ -29,7 +41,7 @@ function prepareCounter(element) {
   return { output: shownValue, target: Number(match[1]), suffix: match[2] };
 }
 
-function runGroup(counters) {
+function runGroup(counters, delayMs) {
   let startTime = 0;
 
   function step(timestamp) {
@@ -39,14 +51,14 @@ function runGroup(counters) {
     const progress = Math.min((timestamp - startTime) / DURATION_MS, 1);
     const eased = easeOutCubic(progress);
     counters.forEach((counter) => {
-      counter.output.textContent = `${Math.round(counter.target * eased)}${counter.suffix}`;
+      counter.output.textContent = `${shownNumber(counter.target, progress, eased)}${counter.suffix}`;
     });
     if (progress < 1) {
       window.requestAnimationFrame(step);
     }
   }
 
-  window.requestAnimationFrame(step);
+  window.setTimeout(() => window.requestAnimationFrame(step), delayMs);
 }
 
 function initCounters() {
@@ -72,7 +84,7 @@ function initCounters() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         observer.unobserve(entry.target);
-        runGroup(groups.get(entry.target));
+        runGroup(groups.get(entry.target), Number(entry.target.dataset.countDelay) || 0);
       }
     });
   }, { threshold: 0.25 });
