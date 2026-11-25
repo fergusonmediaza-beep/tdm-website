@@ -661,6 +661,15 @@
   animation: slide-from-right 0.9s ease-out 0.3s both;
 }
 
+@media (width < 768px) {
+  .page-hero-leaders {
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+}
+
 .leader-figure {
   position: relative;
   display: flex;

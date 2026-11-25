@@ -1,10 +1,10 @@
 /* global document, window, emailjs */
 
-const EMAILJS_PUBLIC_KEY = '';
-const EMAILJS_SERVICE_ID = '';
-const EMAILJS_TEMPLATE_ID = '';
+const EMAILJS_PUBLIC_KEY = 'm-pxaM_ZlXFuxAhM-';
+const EMAILJS_SERVICE_ID = 'service_h9vkkpb';
+const EMAILJS_TEMPLATE_ID = 'template_ern697j';
 const RESUBMIT_DELAY_MS = 30000;
-const FALLBACK_EMAIL = 'info@tdmza.co.za';
+const FALLBACK_EMAIL = 'enquires@tdmza.co.za';
 
 function setStatus(status, message, type) {
   status.textContent = message;
