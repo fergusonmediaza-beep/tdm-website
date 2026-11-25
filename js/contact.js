@@ -25,10 +25,10 @@ function fieldValue(form, name) {
 }
 
 /*
- * The EmailJS template may use its own variable names ({{name}}, {{email}},
- * {{title}}, {{message}} in EmailJS's default Contact Us template), so every
- * value is sent under the common names. The message carries all the details,
- * so nothing is lost if the template only shows the message.
+ * The EmailJS template (copied from the EPF sites, like Digication's) uses the
+ * case-sensitive {{Name}}, {{Email}}, {{Subject}} and {{Message}}. The lower-case
+ * names are sent too, in case the template is changed. The message carries all
+ * the details, so nothing is lost if the template only shows the message.
  */
 function buildTemplateParams(form) {
   const name = fieldValue(form, 'from_name');
@@ -41,20 +41,20 @@ function buildTemplateParams(form) {
   const fullMessage = `${text}\n\nOrganisation: ${organisation}\nPhone: ${phone}\nEnquiry type: ${enquiryType}`;
 
   return {
+    Name: name,
+    Email: email,
+    Subject: subject,
+    Message: fullMessage,
     name,
     from_name: name,
-    user_name: name,
     email,
     reply_to: email,
-    from_email: email,
-    user_email: email,
     title: subject,
     subject,
     organisation,
     phone,
     enquiry_type: enquiryType,
     message: fullMessage,
-    user_message: fullMessage,
   };
 }
 
