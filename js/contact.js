@@ -19,6 +19,45 @@ function isEmailServiceReady() {
     && typeof emailjs !== 'undefined';
 }
 
+function fieldValue(form, name) {
+  const field = form.elements.namedItem(name);
+  return field ? field.value.trim() : '';
+}
+
+/*
+ * The EmailJS template may use its own variable names ({{name}}, {{email}},
+ * {{title}}, {{message}} in EmailJS's default Contact Us template), so every
+ * value is sent under the common names. The message carries all the details,
+ * so nothing is lost if the template only shows the message.
+ */
+function buildTemplateParams(form) {
+  const name = fieldValue(form, 'from_name');
+  const email = fieldValue(form, 'reply_to');
+  const organisation = fieldValue(form, 'organisation') || 'Not given';
+  const phone = fieldValue(form, 'phone') || 'Not given';
+  const enquiryType = fieldValue(form, 'enquiry_type');
+  const text = fieldValue(form, 'message');
+  const subject = `${enquiryType} enquiry from ${name}`;
+  const fullMessage = `${text}\n\nOrganisation: ${organisation}\nPhone: ${phone}\nEnquiry type: ${enquiryType}`;
+
+  return {
+    name,
+    from_name: name,
+    user_name: name,
+    email,
+    reply_to: email,
+    from_email: email,
+    user_email: email,
+    title: subject,
+    subject,
+    organisation,
+    phone,
+    enquiry_type: enquiryType,
+    message: fullMessage,
+    user_message: fullMessage,
+  };
+}
+
 function releaseSubmit(button, delay) {
   window.setTimeout(() => {
     button.disabled = false;
@@ -55,7 +94,7 @@ function handleSubmit(event) {
   submit.disabled = true;
   setStatus(status, 'Sending your enquiry…', '');
 
-  emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, { publicKey: EMAILJS_PUBLIC_KEY })
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, buildTemplateParams(form), { publicKey: EMAILJS_PUBLIC_KEY })
     .then(() => {
       form.reset();
       form.classList.remove('was-validated');
