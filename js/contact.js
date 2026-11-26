@@ -1,4 +1,4 @@
-/* global document, window, emailjs */
+/* global document, window, emailjs, CustomEvent */
 
 const EMAILJS_PUBLIC_KEY = 'm-pxaM_ZlXFuxAhM-';
 const EMAILJS_SERVICE_ID = 'service_h9vkkpb';
@@ -25,8 +25,8 @@ function fieldValue(form, name) {
 }
 
 /*
- * The EmailJS template (copied from the EPF sites, like Digication's) uses the
- * case-sensitive {{Name}}, {{Email}}, {{Subject}} and {{Message}}. The lower-case
+ * The EmailJS template uses the case-sensitive {{Name}}, {{Email}},
+ * {{Subject}} and {{Message}}. The lower-case
  * names are sent too, in case the template is changed. The message carries all
  * the details, so nothing is lost if the template only shows the message.
  */
@@ -58,6 +58,51 @@ function buildTemplateParams(form) {
   };
 }
 
+/*
+ * Spaces alone don't count as an answer: required text fields are checked on
+ * their trimmed value, and the message must still reach its minimum length.
+ */
+function checkTrimmedValue(field) {
+  if (field.type === 'checkbox' || field.tagName === 'SELECT') {
+    return;
+  }
+  const trimmed = field.value.trim();
+  const tooShort = field.minLength > 0 && trimmed.length < field.minLength;
+  const empty = field.required && trimmed === '';
+  field.setCustomValidity(empty || tooShort ? 'invalid' : '');
+}
+
+/* Links the error text to a field only while that field is wrong. */
+function markField(field) {
+  const errorId = field.dataset.error;
+  const isInvalid = !field.checkValidity();
+  field.setAttribute('aria-invalid', String(isInvalid));
+  if (isInvalid && errorId) {
+    field.setAttribute('aria-describedby', errorId);
+  } else {
+    field.removeAttribute('aria-describedby');
+  }
+}
+
+function validateForm(form) {
+  const fields = form.querySelectorAll('[data-error]');
+  fields.forEach((field) => {
+    checkTrimmedValue(field);
+    markField(field);
+  });
+  return form.checkValidity();
+}
+
+function handleFieldChange(event) {
+  const field = event.target;
+  const form = event.currentTarget;
+  if (!field.dataset.error || !form.classList.contains('was-validated')) {
+    return;
+  }
+  checkTrimmedValue(field);
+  markField(field);
+}
+
 function releaseSubmit(button, delay) {
   window.setTimeout(() => {
     button.disabled = false;
@@ -73,7 +118,7 @@ function handleSubmit(event) {
 
   form.classList.add('was-validated');
 
-  if (!form.checkValidity()) {
+  if (!validateForm(form)) {
     setStatus(status, 'Please complete the highlighted fields.', 'error');
     const firstInvalid = form.querySelector(':invalid');
     if (firstInvalid) {
@@ -94,9 +139,13 @@ function handleSubmit(event) {
   submit.disabled = true;
   setStatus(status, 'Sending your enquiry…', '');
 
+  const enquiryType = fieldValue(form, 'enquiry_type');
+
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, buildTemplateParams(form), { publicKey: EMAILJS_PUBLIC_KEY })
     .then(() => {
+      document.dispatchEvent(new CustomEvent('tdm:enquiry-sent', { detail: { enquiryType } }));
       form.reset();
+      form.querySelectorAll('[data-error]').forEach((field) => field.removeAttribute('aria-invalid'));
       form.classList.remove('was-validated');
       setStatus(status, 'Thank you. Your enquiry has been sent and our team will be in touch.', 'success');
       releaseSubmit(submit, RESUBMIT_DELAY_MS);
@@ -113,6 +162,8 @@ function initEnquiryForm() {
     return;
   }
   form.addEventListener('submit', handleSubmit);
+  form.addEventListener('input', handleFieldChange);
+  form.addEventListener('change', handleFieldChange);
 }
 
 initEnquiryForm();

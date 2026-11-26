@@ -2,8 +2,8 @@
 
 const MAP_SELECTOR = '.js-footprint-map';
 const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-const TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-const LEAFLET_PREFIX = '<a href="https://leafletjs.com">Leaflet</a>';
+const TILE_ATTRIBUTION = '&copy; <a class="map-credit-link" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const LEAFLET_PREFIX = '<a class="map-credit-link" href="https://leafletjs.com">Leaflet</a>';
 const PIN_STYLE = { radius: 8, color: '#fff', weight: 2, fillColor: '#ff8200', fillOpacity: 1 };
 const PIN_REGION_STYLE = { radius: 9, color: '#000', weight: 2, fillColor: '#ff8200' };
 const PIN_ACTIVE_STYLE = { radius: 12, color: '#000', weight: 3, fillColor: '#ffc107' };
